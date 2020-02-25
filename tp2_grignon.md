@@ -20,8 +20,7 @@ export MY_VAR="lolo"
 printenv MY_VAR
 
 ## Question 5
-### Tapez ensuite la commande bash. Que fait-elle ? La variable MY_VAR existe-t-elle ? Expliquez. A la fin
-### de cette question, tapez la commande exit pour revenir dans votre session initiale.
+### Tapez ensuite la commande bash. Que fait-elle ? La variable MY_VAR existe-t-elle ? Expliquez. A la fin de cette question, tapez la commande exit pour revenir dans votre session initiale.
 En tapant bash nous avons ouvert une nouvelle instance où la variable MY_VAR n'existe pas puisqu'elle était temporaire à l'instance précédente.
 
 ## Question 7
