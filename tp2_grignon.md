@@ -56,3 +56,166 @@ else
     echo "Strings are not equal."
 fi
 
+# Exercice 3 
+#!/bin/bash
+
+function is_number()
+{
+	re='^[+-]?[0-9]+([.][0-9]+)?$'
+	if ! [[ $1 =~ $re ]] ; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+read -p "Saisissez un nombre : " nb
+is_number $nb
+if [ $? -eq 0 ]; then
+	echo "C'est un nombre reel"
+else
+	echo "Ce n'est pas un nombre reel"
+fi
+
+# Exercice 4
+#!/bin/bash
+
+if [ -z $1 ];then
+	echo "Utilisation : $0 nom_utilisateur"
+else
+	for user in $(cut -d: -f1 /etc/passwd)
+	do
+		if [ $user = $1 ];then
+			echo "l' utilisateur existe"
+			exit
+		fi
+	done
+	echo "l'utilisateur n'existe pas"
+fi
+
+# Exercice 5 (marche pas)
+#!/bin/bash
+
+function facto()
+{
+  f=$f*$1
+  $1=$1-1
+  if ! [ $1 = 1 ]; then
+    facto $1
+  fi
+}
+
+export f=1
+facto $1
+echo "$f"
+
+# Exercice 6
+#!/bin/bash
+
+nb=$(((RANDOM%1000)+1))
+
+fin=-1
+
+while [ $fin -ne $nb ]
+do
+read fin
+if [ $fin -gt $nb ]; then
+  echo "C'est moins !"
+fi
+if [ $fin -lt $nb ]; then
+  echo "C'est plus !"
+fi
+done
+
+echo "Gagné !"
+
+# Exercice 7
+## 1)
+#!/bin/bash
+
+function is_number()
+{
+	re='^[+-]?[0-9]+([.][0-9]+)?$'
+	if ! [[ $1 =~ $re ]] ; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+somme=0
+nb=0
+min=$1
+max=$1
+
+while (("$#")); do
+    is_number $1
+    if [[ $? = 1 ]]; then
+        echo "Un des paramètres n'est pas un nombre"
+        exit
+    fi
+
+    somme=$((somme + $1))
+    nb=$((nb + 1))
+
+    if [[ $1 -gt $max ]]; then
+        max=$1
+    elif [[ $1 -lt $min ]]; then
+        min=$1
+    fi
+    shift
+done
+
+echo Min: $min
+echo Max: $max
+printf 'Moyenne: %.2f\n' $(echo "$somme / $nb" | bc -l)
+
+## 2)
+#!/bin/bash
+
+function is_number()
+{
+	re='^[+-]?[0-9]+([.][0-9]+)?$'
+	if ! [[ $1 =~ $re ]] ; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+values=()
+input="0"
+index=0
+
+while [ -n "$input" ]; do
+    read -p "Entrez un nombre: " input
+
+    if [ -n "$input" ]; then
+        is_number $input
+        if [[ $? = 1 ]]; then
+            echo "Ce n'est pas un nombre"
+        else
+            values[$index]=$input
+            index=$(( $index + 1 ))
+        fi
+    fi
+done
+
+sum=0
+min=${values[0]}
+max=${values[0]}
+
+for n in ${values[@]}; do
+    sum=$((sum + $n))
+    count=$((count + 1))
+
+    if [[ $n -gt $max ]]; then
+        max=$n
+    elif [[ $n -lt $min ]]; then
+        min=$n
+    fi
+done
+
+echo Min: $min
+echo Max: $max
+printf 'Moyenne: %.2f\n' $(echo "$sum / $index" | bc -l)
