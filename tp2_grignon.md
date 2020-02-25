@@ -12,7 +12,7 @@ C'est la variable $HOME
 ## Question 3
 ### Explicitez le rôle des variables LANG, PWD, OLDPWD, SHELL et _.
 LANG contient  la langue du système, PWD (Print Working Directory) contient le chemin absolu actuel dans bash, OLDPWD contient le
-chemin précédent avant d'éxécuter la commande cd, SHELL contient le chemin du bash.
+chemin précédent avant d'éxécuter la commande cd, SHELL contient le chemin du bash, _ donne le chemin de la commande printenv.
 
 ## Question 4
 ### Créez une variable locale MY_VAR. Vérifiez que la variable existe.
@@ -37,9 +37,22 @@ echo Bonjour à vous deux, $NOMS
 ## Question 9
 ### Quelle différence y a-t-il entre donner une valeur vide à une variable et l’utilisation de la commande
 ### unset ?
-Quand on utilise printenv sur la variable qui existe mais qui est vide, cela va faire sauter une ligne dans le bash
+Quand on utilise printenv sur la variable cela la supprimme, sinon elle est vide
 
 ## Question 10
 ### Utilisez la commande echo pour écrire exactement la phrase : $HOME = chemin
 echo '$HOME = '$HOME
+
+
+# Exercice 2
+#!/bin/bash
+
+VAR1="Linuxize"
+VAR2="Linuxize"
+
+if [ "$VAR1" = "$VAR2" ]; then
+    echo "Strings are equal."
+else
+    echo "Strings are not equal."
+fi
 
